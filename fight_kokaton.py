@@ -170,7 +170,7 @@ def main():
     bombs = []
     for _ in range(NUM_OF_BOMBS):
         bombs.append(Bomb((255, 0, 0), 10))
-    # bombs = [Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)] #練習5
+
     # 【変更箇所1】Beamインスタンスを複数扱うための空のリストを作る
     beams = []
     # beam = None  # ゲーム初期化時にはビームは存在しない
