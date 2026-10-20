@@ -208,6 +208,10 @@ def main():
                         bombs[i] = None
                         bird.change_img(6, screen)  # よろこびエフェクト
                         score.score += 1
+
+                        #撃ち落とされたら新しい爆弾を追加
+                        bombs.append(Bomb((255, 0, 0), 10))
+
         bombs = [bomb for bomb in bombs if bomb is not None]  # Noneを取り除く
         beams = [beam for beam in beams if beam is not None]
 
