@@ -139,6 +139,25 @@ class Bomb:
             self.vy *= -1
         self.rct.move_ip(self.vx, self.vy)
         screen.blit(self.img, self.rct)
+class Score:
+        
+    def __init__(self):
+        # フォントの設定:
+        self.fonto = pg.font.Font(None, 50)
+        # 文字色の設定: 
+        self.color = (0, 0, 255)
+        # スコアの初期値の設定: 0
+        self.score = 0
+        # 文字列Surfaceの生成
+        self.img = self.fonto.render(f"Score: {self.score}", 0, self.color)
+        self.rct = self.img.get_rect()
+        # 文字列の中心座標: 画面左下 (横:100, 縦:画面下部から50)
+        self.rct.center = (100, HEIGHT - 50)
+
+    def update(self, screen: pg.Surface):
+        # 現在のスコアを表示させる文字列Surfaceの生成とスクリーンにblit
+        self.img = self.fonto.render(f"Score: {self.score}", 0, self.color)
+        screen.blit(self.img, self.rct)
 
 
 def main():
@@ -146,6 +165,7 @@ def main():
     screen = pg.display.set_mode((WIDTH, HEIGHT))    
     bg_img = pg.image.load("fig/pg_bg.jpg")
     bird = Bird((300, 200))
+    score = Score()
     bomb = Bomb((255, 0, 0), 10)
     bombs = []
     for _ in range(NUM_OF_BOMBS):
@@ -188,6 +208,7 @@ def main():
                     beam = None
                     bombs[i] = None
                     bird.change_img(6, screen) #よろこびエフェクト
+                    score.score += 1
                     pg.display.update()
         bombs = [bomb for bomb in bombs if bomb is not None]  # Noneを取り除く
 
@@ -198,6 +219,7 @@ def main():
             beam.update(screen)   
         for bomb in bombs: 
             bomb.update(screen)
+        score.update(screen)
         pg.display.update()
         tmr += 1
         clock.tick(50)
